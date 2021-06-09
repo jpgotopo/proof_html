@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Trabajadores y Estudiantes</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- genera el enlace al archivo script-p31.js -->
+    <!-- genera el enlace al framework de jQuery (jquery.min.js) 
+         la llamada al fremwork puede ser local o al servidor remoto-->
+</head>
+<body>
+<p>El trabajador es la persona física que presta sus servicios de manera retribuida a otra persona, a una empresa o a una institución.</p>
+<p><br></p>
+<p>
+    
+    <label>Persona: <select id="selectNumber"><option value="">Seleccione persona</option></select>
+    <script>
+        // realiza la llamada al script que genere la lista desplegable
+    </script>
+</p>
+<p></p>
+<table class="tabla">
+    <tr><th colspan="4" class="titulo"><span id="dnombre">-</span></th></tr>
+    <tr><th class="enca">e-mail:</th><td><span id="dmail">-</span></td>
+        <th><span id="trfc">R.F.C.:</span></th><td><span id="drfc">-</span></td></tr>
+    <tr><th class="enca"><span id="tarea">Depto.:</span></th><td><span id="darea">-</span></td>
+        <th><span id="tprom">Promedio:</span></th><td><span id="dprom">-</span></td></tr>
+    <tr><th class="enca">A. Ingreso:</th><td><span id="dingreso">-</span></td>
+        <th>Antigüedad:</th><td><span id="dantigue">-</span></td></tr>
+</table>
+<script>
+    // realiza la llamada al script de jQuery para que al momento de seleccionar un
+    // elemento de la lista desplegable se muestre sus datos en la tabla
+
+</script>
+<script>
+    //datos de las personas guardadas en un arreglo
+var personas = [
+['Carlos García', 'cargarcia@tec.mx','T', '1985', 'C. Básicas',   'AGVR600509R6T','-'], 
+['Cristy Zerweck','cristyz@tecma.mx','E', '2014', 'IGE', '--', '96'],
+['Jorge Martínez','majorge@tecma.mx','E', '2015', 'ISC', '--', '98'],
+['Jesús Valdés',  'jesusvald@tec.mx','T', '2001', 'Mantenimiento','EVCU801125UY7','-'], 
+['Maky Guajardo', 'mguajar@tecma.mx','E', '2013', 'ISC', '--', '97'],
+['Nohemí Gámez',  'luisa.gam@tec.mx','T', '2000', 'Financieros',  'OGME790413HG3','-'], 
+['Sergio Salazar','sergiosal@tec.mx','T', '1990', 'Planeación',   'ESRA701230Q23','-'], 
+['Víctor Luévano','vluevanos@tec.mx','T', '1996', 'Gestión Tec.', 'ILVI720809MWE','-'], 
+['Vita Torres',   'vtorres@tecma.mx','E', '2014', 'ITIC','--', '94'],
+['Zulema Gómez',  'zulemag@tecma.mx','E', '2016', 'ITIC','--', '97'],
+['Ludwing Miranda', 'lmiranda@tecma.mx','E','2018', 'ISC','--', '95']];
+//agrega tus datos al arreglo anterior para que también aparezcas en la lista desplegable
+var select = document.getElementById("selectNumber"); 
+
+for(var i = 0; i < personas.length; i++) { 
+    var opt = personas[i][0]; 
+    var el = document.createElement("option"); 
+    el.textContent = opt; 
+    el.value = opt; 
+    select.appendChild(el); 
+    
+}
+//arreglo para guardar los objetos
+var apersonas=[];
+
+//prototipo para crear los objetos
+function Persona (nombre, email, tipo, anio, area, rfc, prom) {
+    this.nombre = nombre;
+    this.correo = email;
+    this.tipo   = tipo;
+    this.ingreso= anio;
+    this.antiguedad= function () {
+                return (new Date().getFullYear() - this.ingreso);
+        }
+    this.area = area;
+    this.rfc = rfc;
+    this.promedio=prom;
+}
+
+//función para crear los objetos y guardarlos en un arreglo
+function creaPersonas(arreglo){
+    for (var i = 0; i < arreglo.length; i++) {
+        nombre=arreglo[i][0];
+        email =arreglo[i][1];
+        tipo  =arreglo[i][2];   
+        anio  =arreglo[i][3];
+        area  =arreglo[i][4];   
+        rfc   =arreglo[i][5];
+        prom  =arreglo[i][6];
+        apersonas.push(new Persona(nombre, email, tipo, anio, area, rfc, prom));
+    }
+    return;
+    }
+
+    // La función generaLista(arregloObjeto) crea la lista desplegable a partir del arreglo de objetos.
+    // En la lista, el valor para el atributo value debe ser el correo electrónico. 
+    // En la lista, la opción para elegir debe ser el nombre de la persona. 
+    function generaLista(arregloObjeto) {
+        
+    }
+
+
+    // La función accionChange() busca en el arreglo de objetos a la persona elegida de la lista desplegable.
+    // Muestra los datos de la persona dependiendo su tipo (trabajador o estudiante)
+    // El acceso al DOM debe hacerse con jQuery. 
+    function accionChange() {
+        
+    }
+</script>
+<style>
+    body {
+    font: 100% sans-serif; 
+    font-size: 1.0625em;
+    }
+
+    p { width: 80%; }
+
+    .tabla {
+        width: 38em;
+        border-collapse: collapse;
+        box-shadow: 3px 3px 7px #336699; 
+        font-size: .8125em;
+        text-align: left;
+    }
+
+    .titulo {
+        text-align: center;
+        font-size: 1.25em;
+        font-weight: bold;
+        padding: 0.20em 0;
+        color: #FFF;
+        background: #5C85AD;
+        text-shadow: 1px 1px 1px #000;
+    }
+
+    .enca { /*para el th */
+        padding: .5em .15em .5em 1.0em;
+    }
+
+    .campo-medio {
+        /*width: 150px;*/
+        width: 10em;
+    }
+</style>
+</body>
+</html>

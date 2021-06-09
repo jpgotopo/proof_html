@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es_ES">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript">
+
+   var nextinput = 0;
+   function AgregarCampos() {
+       nextinput++;
+       campo = '<li id="idLi' + nextinput + '">' +
+
+'<select id="txt' + nextinput + '" step="any"' +
+' oninput="multiplicar(\'txt' + nextinput + '\',\'nmb' + nextinput + '\',\'acumu' + nextinput + '\',\'prinact' + nextinput + '\');" >' +
+
+'<option value="REFRESCO 2L HIT-NARANJA [ COCACOLA RIF J123456789 ] Precio: 1500.00">REFRESCO 2L HIT-NARANJA [ COCACOLA RIF J123456789 ] Precio: 1500.00</option>' +
+'<option value="REFRESCO 2L GOLDEN-NARANJA [ PEPSICOLA DE COCA ] Precio: 1200.00">REFRESCO 2L GOLDEN-NARANJA [ PEPSICOLA DE COCA ] Precio: 1200.00</option>' +
+'<option value="REFRESCO 2L NARANJA-ORANGE Precio: 1000.00">REFRESCO 2L NARANJA-ORANGE Precio: 1000.00</option>   ' +
+'</select>' +
+
+'<input type="text" size="15" id="prinact' + nextinput + '" step="any" ' +
+' oninput="multiplicar(\'txt' + nextinput + '\',\'nmb' + nextinput + '\',\'acumu' + nextinput + '\',\'prinact' + nextinput + '\',\'preciou' + nextinput + '\');" />' +
+
+'<input type="text" size="15" id="preciou' + nextinput + '" step="any" ' +
+' oninput="multiplicar(\'txt' + nextinput + '\',\'nmb' + nextinput + '\',\'acumu' + nextinput + '\',\'prinact' + nextinput + '\',\'preciou' + nextinput + '\');" />' +
+
+'<input type="number" size="15" id="nmb' + nextinput + '" step="any" ' +
+' oninput="multiplicar(\'txt' + nextinput + '\',\'nmb' + nextinput + '\',\'acumu' + nextinput + '\',\'prinact' + nextinput + '\',\'preciou' + nextinput + '\');" />' +
+
+'<input type="text" size="15"   id="acumu' + nextinput + '" step="any" class="monto total"' +
+' oninput="multiplicar(\'txt' + nextinput + '\',\'nmb' + nextinput + '\',\'acumu' + nextinput + '\',\'prinact' + nextinput + '\',\'preciou' + nextinput + '\');" />' +
+
+'</li>';
+
+        $("#campos").append(campo);
+       
+        }
+   function multiplicar(txt, nmb, acumu, prinact, preciou) {
+       var m1 = document.getElementById(txt).value;
+       var m2 = document.getElementById(nmb).value;
+
+       //EXP.REG PARA EXTRAER LO QUE ESTA EN CORCHETES
+       var PrinActi = /\[([\w\s]*)\]/g;
+       if (PrinActi.test(m1)) 
+       {
+           var PrinAct2 = m1.match(PrinActi)[0]; 
+           var PrinAct3 = PrinAct2.replace(/[\[\]]/g, '');
+           document.getElementById(prinact).value = PrinAct3;
+       }
+
+       //EXP.REG PARA EXTRAER LO QUE ESTA DESPUES DE PRECIO
+       var PriceU = /precio: (\d+)/i;
+       if (PriceU.test(m1)) 
+       {
+           var PriceU2 = m1.match(PriceU); 
+           var PriceU3 = parseInt(PriceU2[1]); 
+           document.getElementById(preciou).value = PriceU3; 
+       }
+       
+       var P = /precio: (\d+)/i;
+       var matchA = m1.match(P);
+       var Price = parseInt(matchA[1]);
+       r = Price * m2;
+       document.getElementById(acumu).value = r;
+
+       //SUMA EL TOTAL DE LOS INPUT QUE TENGA LA CLASS .monto 
+       var total = 0;
+       $(".monto").each(function () {
+           if (isNaN(parseFloat($(this).val()))) {
+               total += 0;
+           } else {
+               total += parseFloat($(this).val());
+           }
+       });
+       document.getElementById('T').value = total;
+   }
+    </script>
+</head>
+<body>
+    <form id="form" name="form" method="post">
+         <div align="left">
+    <a href="#" onclick="AgregarCampos();">Agregar Producto</a>
+    <ul id="campos"></ul>
+        
+       <table id="tblPosicionesNueva">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+           <tr>
+                <td>
+                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <input type="text"  id="inputBusqueda" style="width:495px" value="REFRESCO"  />
+                </td>
+                <td>
+                    <input type="text"  style="width:130px" value"COLA"/>
+                </td>
+                <td>
+                    <input type="text" class="mult" value="2500" style="width:130px"/>
+                </td> 
+                <td>
+                    <input type="number" class="mult" value="5" style="width:165px"/>
+                </td> 
+                <td>
+                    <input type="text" class="total" value="12500" style="width:130px"/>
+                </td>
+          </tr>
+          <tr>
+                <td>
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <input type="text"  id="" style="width:495px" value="REFRESCO"  />
+                </td>
+                <td>
+                    <input type="text"  style="width:130px" value="COLA"/>
+                </td>
+                <td>
+                    <input type="text" class="mult" value="1500" style="width:130px"/>
+                </td> 
+                <td>
+                    <input type="number" class="mult" value="4" style="width:165px"/>
+                </td> 
+                <td>
+                    <input type="text" class="total" value="6000" style="width:130px"/>
+                </td>
+          </tr>
+       </tbody>
+    </table>
+
+             <br />
+             <tr>
+                <td>
+                    Total
+                </td>
+                <td>
+                    <input type="text" id="T" value="0" disabled>
+                </td>
+            </tr>
+    </div>
+    </form>
+</body>
+</html>
+
+<script>
+    // GENEREA EVENTO click y keyup PARA LOS ELEMENTOS INPUT CON CLASE .mult
+    var input = document.querySelectorAll(".mult");
+input.forEach(function(e) {
+    e.addEventListener("click",multiplica);
+    e.addEventListener("keyup",multiplica);
+});
+    // FUNCION PARA MULTIPLICAR RECORRIENDO LOS tr QUE TIENEN LA CLASE .mult INDICANDO EL TOTAL
+function multiplica() {
+    var tr = this.closest("tr");
+    var total = 1;
+    var inputs = tr.querySelectorAll(".mult");
+    inputs.forEach(function (e) {
+        total *= e.value;
+    });
+    tr.querySelector(".total").value = total;
+    calcularTotal(this.closest("table"));
+}
+    // FUNCION QUE CALCULA LA SUMA OBTIENE LOS TOTALES Y LOS SUMA
+function calcularTotal(e) {
+    var total=0;
+    var totales=e.querySelectorAll(".total");
+    totales.forEach(function(e) {
+        total+=parseFloat(e.value);
+    });
+    document.getElementById('T').value = new Intl.NumberFormat('de-DE').format(total) + ",00";
+}
+</script>
+Ampliar
+EN ESTE FRAGMENTO ESTA CON LOS MILES
+
+<!DOCTYPE html>
+<html lang="es_ES">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript">
+
+   var nextinput = 0;
+   function AgregarCampos() {
+       nextinput++;
+       campo = '<li id="idLi' + nextinput + '">' +
+
+'<select id="txt' + nextinput + '" step="any"' +
+' oninput="multiplicar(\'txt' + nextinput + '\',\'nmb' + nextinput + '\',\'acumu' + nextinput + '\',\'prinact' + nextinput + '\');" >' +
+
+'<option value="REFRESCO 2L HIT-NARANJA [ COCACOLA RIF J123456789 ] Precio: 1.500.000,00">REFRESCO 2L HIT-NARANJA [ COCACOLA RIF J123456789 ] Precio: 1.500.000,00</option>' +
+'<option value="REFRESCO 2L GOLDEN-NARANJA [ PEPSICOLA DE COCA ] Precio: 1.200.500,00">REFRESCO 2L GOLDEN-NARANJA [ PEPSICOLA DE COCA ]] Precio: 1.200.500,00</option>' +
+'<option value="REFRESCO 2L NARANJA-ORANGE Precio: 1.000.100,00">REFRESCO 2L NARANJA-ORANGE  Precio: 1.000.100,00</option>   ' +
+'</select>' +
+
+'<input type="text" size="15" id="prinact' + nextinput + '" step="any" ' +
+' oninput="multiplicar(\'txt' + nextinput + '\',\'nmb' + nextinput + '\',\'acumu' + nextinput + '\',\'prinact' + nextinput + '\',\'preciou' + nextinput + '\');" />' +
+
+'<input type="text" size="15" id="preciou' + nextinput + '" step="any" ' +
+' oninput="multiplicar(\'txt' + nextinput + '\',\'nmb' + nextinput + '\',\'acumu' + nextinput + '\',\'prinact' + nextinput + '\',\'preciou' + nextinput + '\');" />' +
+
+'<input type="number" size="15" id="nmb' + nextinput + '" step="any" ' +
+' oninput="multiplicar(\'txt' + nextinput + '\',\'nmb' + nextinput + '\',\'acumu' + nextinput + '\',\'prinact' + nextinput + '\',\'preciou' + nextinput + '\');" />' +
+
+'<input type="text" size="15"   id="acumu' + nextinput + '" step="any" class="monto total"' +
+' oninput="multiplicar(\'txt' + nextinput + '\',\'nmb' + nextinput + '\',\'acumu' + nextinput + '\',\'prinact' + nextinput + '\',\'preciou' + nextinput + '\');" />' +
+
+'</li>';
+
+        $("#campos").append(campo);
+       
+        }
+   function multiplicar(txt, nmb, acumu, prinact, preciou) {
+       var m1 = document.getElementById(txt).value;
+       var m2 = document.getElementById(nmb).value;
+
+       //EXP.REG PARA EXTRAER LO QUE ESTA EN CORCHETES
+       var PrinActi = /\[([\w\s]*)\]/g;
+       if (PrinActi.test(m1)) 
+       {
+           var PrinAct2 = m1.match(PrinActi)[0]; 
+           var PrinAct3 = PrinAct2.replace(/[\[\]]/g, '');
+           document.getElementById(prinact).value = PrinAct3;
+       }
+
+       //EXP.REG PARA EXTRAER LO QUE ESTA DESPUES DE PRECIO
+       var PriceU = /precio: (\d+)/i;
+       if (PriceU.test(m1)) 
+       {
+           var PriceU2 = m1.match(PriceU); 
+           var PriceU3 = parseInt(PriceU2[1]); 
+           document.getElementById(preciou).value = PriceU3; 
+       }
+       
+       var P = /precio: (\d+)/i;
+       var matchA = m1.match(P);
+       var Price = parseInt(matchA[1]);
+       r = Price * m2;
+       document.getElementById(acumu).value = r;
+
+       //SUMA EL TOTAL DE LOS INPUT QUE TENGA LA CLASS .monto 
+       var total = 0;
+       $(".monto").each(function () {
+           if (isNaN(parseFloat($(this).val()))) {
+               total += 0;
+           } else {
+               total += parseFloat($(this).val());
+           }
+       });
+       document.getElementById('T').value = total;
+   }
+    </script>
+</head>
+<body>
+    <form id="form" name="form" method="post">
+         <div align="left">
+    <a href="#" onclick="AgregarCampos();">Agregar Producto</a>
+    <ul id="campos"></ul>
+        
+       <table id="tblPosicionesNueva">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+           <tr>
+                <td>
+                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <input type="text"  id="inputBusqueda" style="width:495px" value="REFRESCO"  />
+                </td>
+                <td>
+                    <input type="text"  style="width:130px" value="COLA"/>
+                </td>
+                <td>
+                    <input type="text" class="mult" value="12500000" style="width:130px"/>
+                </td> 
+                <td>
+                    <input type="number" class="mult" value="5" style="width:165px"/>
+                </td> 
+                <td>
+                    <input type="text" class="total" value="12500000" style="width:130px"/>
+                </td>
+          </tr>
+          <tr>
+                <td>
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <input type="text"  id="" style="width:495px" value="REFRESCO"  />
+                </td>
+                <td>
+                    <input type="text"  style="width:130px" value="COLA"/>
+                </td>
+                <td>
+                    <input type="text" class="mult"  value="6000000" style="width:130px"/>
+                </td> 
+                <td>
+                    <input type="number" class="mult" value="4" style="width:165px"/>
+                </td> 
+                <td>
+                    <input type="text" class="total"  value="6000000" style="width:130px"/>
+                </td>
+          </tr>
+       </tbody>
+    </table>
+
+             <br />
+             <tr>
+                <td>
+                    Total
+                </td>
+                <td>
+                    <input type="text" id="T" value="0" disabled>
+                </td>
+            </tr>
+    </div>
+    </form>
+</body>
+</html>
+
+<script>
+    // GENEREA EVENTO click y keyup PARA LOS ELEMENTOS INPUT CON CLASE .mult
+    var input = document.querySelectorAll(".mult");
+input.forEach(function(e) {
+    e.addEventListener("click",multiplica);
+    e.addEventListener("keyup",multiplica);
+});
+    // FUNCION PARA MULTIPLICAR RECORRIENDO LOS tr QUE TIENEN LA CLASE .mult INDICANDO EL TOTAL
+function multiplica() {
+    var tr = this.closest("tr");
+    var total = 1;
+    var inputs = tr.querySelectorAll(".mult");
+    inputs.forEach(function (e) {
+        total *= e.value;
+    });
+    tr.querySelector(".total").value = total;
+    calcularTotal(this.closest("table"));
+}
+    // FUNCION QUE CALCULA LA SUMA OBTIENE LOS TOTALES Y LOS SUMA
+function calcularTotal(e) {
+    var total=0;
+    var totales=e.querySelectorAll(".total");
+    totales.forEach(function(e) {
+        total+=parseFloat(e.value);
+    });
+    document.getElementById('T').value = new Intl.NumberFormat('de-DE').format(total) + ",00";
+}
+</script>

@@ -1,0 +1,13 @@
+.grafica{
+	width: 40vw;
+
+}
+
+@media (max-width: 600px) {
+  .grafica {
+    width: 80vw;}
+   #myChart {
+   	min-width: 77vw;
+   }
+
+}

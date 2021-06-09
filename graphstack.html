@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>GraphStack</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+</head>
+<body>
+	
+	<canvas id="barras" width="200" height="70"></canvas>
+	<script>
+		var s1 = {
+            label: '2017',
+            borderColor: "rgba(220,20,20,1)",
+            backgroundColor: "rgba(220,20,20,0.5)",
+            data: [7,8,9]
+        };
+        var s2 = {
+            label: '2018',
+            borderColor: "rgba(110,10,10,1)",
+            backgroundColor: "rgba(110,10,10,0.5)",
+            data: [3,4,5]
+        };
+        var s3={
+            label: '2019',
+            borderColor: "rgba(12,10,10,1)",
+            backgroundColor: "rgba(12,10,10,0.5)",
+            data: [10,3,5]
+
+        };
+		var s4 = {
+            label: '2017',
+            borderColor: "rgba(500,20,20,1)",
+            backgroundColor: "rgba(500,20,20,0.5)",
+            data: [7,8,9]
+        };
+        var config = {
+            type: 'bar',
+            data: {labels: ["Clientes","Terminales" ],
+            datasets: [s1, s2, s3, s4]},
+            options: {
+                scales: {
+		  xAxes: [{
+		    stacked: false,
+		  }],
+           yAxes: [
+               {
+                       stacked: false,
+                   ticks: {
+                   		beginAtZero:true,
+                       callback: function(label, index, labels) {
+                           return '$' + label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                       }
+                   }/*,//mostrarmos una nueva columna eje Y
+                   scaleLabel: {
+                       display: true,
+                       labelString: 'Millones'
+                   }*/
+               }
+           ]
+    }
+            }
+        }
+
+        var ctx = document.getElementById("barras").getContext("2d");
+        window.myLine = new Chart(ctx, config);
+	</script>
+</body>
+</html>
