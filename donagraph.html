@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Page Title</title>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+        <link rel="stylesheet" href="Assets/css/graphline.css">
+    </head>
+    <body>
+        <div class="grafica">
+            <canvas id="chartJSContainer"></canvas>
+        </div>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0-rc"></script>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+        <script>
+            Chart.register(ChartDataLabels);
+            var deepOrange = "#ec6d0f";
+            var orange = "#f8b113";
+            var green = "#39a171";
+            var blue = "#01a0c6";
+                var options = {
+                  type: 'doughnut',
+                  data: {
+                    labels: [ "Traducción y Alfabetización", "Información no disponible", "Misiones", "Capacitación"],
+                    datasets: [{
+                      fill:false,
+                      label: 'Cantidad Estudiantes',
+                      data: [ 43,20,13,22],
+                      animation: {
+                          animateScale:true
+                      },
+                      backgroundColor: [
+                      blue, orange, green, deepOrange,
+                        
+                      ],
+                      
+                    //   borderColor: 'rgba(255,99,132,1)',
+                      borderWidth: 3
+                    }]
+                  },
+                  
+               
+                  options: {clip: {left: 5, top: false, right: -2, bottom: 0},
+                    responsive:true,    
+                    plugins: {
+                      legend: {
+                        display:false, 
+                        title:{text:"Número de Estudiantes por país (2003-2020)", display:true}},
+                      datalabels: {
+                        backgroundColor: function(context) {
+                          return context.dataset.backgroundColor;
+                        },
+                        color: 'white',
+                        font: {
+                          weight: 'bold',
+                          size:18
+                        },
+                        padding: 4,
+                      }
+                    }
+                  }
+                }
+
+                var ctx = document.getElementById('chartJSContainer').getContext('2d');
+                new Chart(ctx, options);
+        </script>
+
+    </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico Donas</title>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0-rc"></script>
+    <div class="grafica">
+        <canvas id="dona" width="600" height="400"></canvas>
+    </div>
+    <script>
+        var ctx = document.getElementById("dona");
+        var deepOrange = "#ec6d0f";
+        var orange = "#f8b113";
+        var green = "#39a171";
+        var blue = "#01a0c6";
+        var myPieChart = new Chart(ctx,{
+        type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [ 43,20,13,22],
+                        backgroundColor: [ blue, orange, green, deepOrange],
+                        label: 'Dataset 1'
+                    }],
+                    labels: [ "Traducción y Alfabetización", "Información no disponible", "Misiones", "Capacitación"  ]
+                },
+                options: {
+                    
+                    responsive: true,
+                    plugin:{
+                        legend: {
+                        display:false,}
+                    },
+
+                    
+                    
+                    
+                }
+        });
+    </script>
+    <style>
+        .grafica{
+            width:40vw;
+        }
+    </style>
+</body>
+</html> -->
