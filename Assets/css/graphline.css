@@ -3,11 +3,12 @@
 
 }
 
-@media (max-width: 600px) {
+@media (max-width: 750px) {
   .grafica {
-    width: 80vw;}
+    width: 80vw; padding-bottom: 3%;}
    #myChart {
-   	min-width: 77vw;
+   	min-width: 50vw;
+    
    }
 
 }
