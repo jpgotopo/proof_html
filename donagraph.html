@@ -5,16 +5,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Page Title</title>
-
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
         <link rel="stylesheet" href="Assets/css/graphline.css">
     </head>
     <body>
-      <div class="container-fluid pt-2">
-
-      </div>
-      <div class="d-flex  flex-wrap justify-content-center">
+      <div class="d-flex  flex-wrap justify-content-center pt-2">
         <div class="grafica col-md-6 col-lg-6">
             <canvas id="chartJSContainer"></canvas>
             
@@ -23,13 +19,9 @@
           <canvas id="chartJSContainerB"></canvas>
         </div>
       </div>
-        
-        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0-rc"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0-rc"></script> -->
         <script src="https://unpkg.com/chart.js-plugin-labels-dv/dist/chartjs-plugin-labels.min.js"></script>
-          
-        
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -39,13 +31,10 @@
           .grafica{
             padding-left: 2%;
             padding-right: 2%;
-            
           }
-
-         
         </style>
         <script>
-            Chart.register(ChartDataLabels);
+            // Chart.register(ChartDataLabels);
             var deepOrange = "#ec6d0f";
             var orange = "#f8b113";
             var green = "#39a171";
@@ -63,32 +52,23 @@
                   },
                   backgroundColor: [
                   blue, orange, green, deepOrange,
-                    
                   ],
-                  
-                //   borderColor: 'rgba(255,99,132,1)',
-                  
                 }]
               },
-              
-            
               options: {
-                responsive:true,    
+                responsive:true,
                 plugins: {
-                  
                   legend: {
-                    display:false, 
-                    
-                    title:{text:"Número de Estudiantes por país (2003-2020)", display:true}},
-                  datalabels: {
-                    backgroundColor: function(context) {
-                      return context.dataset.backgroundColor;
-                    },
+                    display:false,
+                    title:{text:"Número de Estudiantes por país (2003-2020)", display:false}},
+                  labels: {
+                    render:  'value',
+                    fontStyle: 'bolder',
+                    fontSize: 32,
+                    weight:'bolder',
+                    fontColor: '#fff',
+                    fontFamily: 'Arial',
                     color: 'white',
-                    font: {
-                      weight: 'bold',
-                      size:18
-                    },
                     padding: 4,
                   }
                 }
@@ -102,49 +82,42 @@
                   data: [40,60],
                   backgroundColor:[blue, orange],
                 },
-                
-              
               ],
-                
               },
               options:{
-              plugins: {
-                  labels: {
-                    render:'label',
-                    fontStyle:'normal',
-                    fontSize: 12,
-                    fontColor: '#fff',
-                    fontFamily: 'Arial',
-                    arc:true,
-                  },
-                  legend: {
-                    display:false, 
-                    
+                    elements:{
+                        center:{
+                            text:'%',
+                            color:'#000',
+                            fontStyle:'Arial',
+                            sidePadding: 20,
+                            minFontSize: 25,
+                            lineHeight:25
+                        }
                     },
-                  datalabels: {
-                    backgroundColor: function(context) {
-                      return context.dataset.backgroundColor;
-                    },
-                    color: 'white',
-                    font: {
-                      weight: 'bold',
-                      size:18
-                    },
-                    padding: 4,
-                  }
-                }
-            }
-            };
+                    plugins: {
 
+                    labels: {
+                        render:  'label',
+                        arc: true,
+                        fontStyle: 'bolder',
+                        fontSize: 24,
+                        // weight:'bold',
+                        fontColor: '#fff',
+                        fontFamily: 'Arial',
+                    },
+                    legend: {
+                        display: false,
+                    },
+                    }
+                }
+                }
             // custom render
-            
-           
             var ctxb = document.getElementById('chartJSContainerB').getContext('2d');
             var ctx = document.getElementById('chartJSContainer').getContext('2d');
             new Chart(ctx, options);
             new Chart(ctxb, optionsb);
         </script>
-
     </body>
 </html>
 
